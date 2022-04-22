@@ -30,6 +30,7 @@ const InputWrapper = styled.input`
   }
   &::placeholder {
     color: darkgray;
+    font-size: 12px;
   }
 `;
 
@@ -37,7 +38,7 @@ const Input = ({ text, ...rest }) => {
   return <InputWrapper placeholder={text} {...rest} />;
 };
 
-export default Input;
+export default React.memo(Input);
 
 InputWrapper.defaultProps = {
   size: "small",

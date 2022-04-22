@@ -12,6 +12,7 @@ const TextareaWrapper = styled.textarea`
   }
   &::placeholder {
     color: darkgray;
+    font-size: 12px;
   }
 `;
 
@@ -19,4 +20,4 @@ const Textarea = ({ text, ...rest }) => {
   return <TextareaWrapper placeholder={text} {...rest} />;
 };
 
-export default Textarea;
+export default React.memo(Textarea);

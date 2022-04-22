@@ -1,27 +1,21 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import UploadPage from "./components/UploadPage/UploadPage";
-import axios from "axios";
+import UploadReviewPage from "./components/UploadPage/UploadReviewPage";
+import Auth from "./hoc/auth";
 
 function App() {
-  const onClick = async () => {
-    const body = {
-      name: "test",
-      email: "test@email.com",
-      password: "1234567",
-    };
-
-    const res = await axios.post("/api/users/login", body);
-    console.log(res);
-  };
-
+  const HocUploadReviewPage = Auth(UploadReviewPage, false);
   return (
-    <div className="App">
-      <div className="container">
-        <UploadPage />
-        <button onClick={onClick} />
+    <BrowserRouter>
+      <div className="App">
+        <div className="container">
+          <Routes>
+            <Route path="/upload/review" element={<HocUploadReviewPage />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 

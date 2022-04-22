@@ -3,6 +3,7 @@ import styled from "styled-components";
 import useInputs from "../../utils/useInputs";
 import Input from "../Input";
 import Textarea from "../Textarea";
+import Button from "../Button";
 
 const UploadForm = styled.form`
   display: flex;
@@ -26,9 +27,15 @@ const initialState = {
   content: "",
 };
 
-const UploadPage = () => {
+const UploadReviewPage = () => {
   const [inputs, onChange, reset] = useInputs(initialState);
   const { title, writer, content, date } = inputs;
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    console.log({ title, writer, content, date });
+    reset();
+  };
 
   return (
     <div>
@@ -54,9 +61,10 @@ const UploadPage = () => {
             value={content}
           />
         </div>
+        <Button text="등록" onClick={submitForm} />
       </UploadForm>
     </div>
   );
 };
 
-export default UploadPage;
+export default React.memo(UploadReviewPage);
