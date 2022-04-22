@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import useInputs from "../../utils/useInputs";
-import Input from "../Input";
-import Textarea from "../Textarea";
-import Button from "../Button";
+import Input from "../../components/Input";
+import Textarea from "../../components/Textarea";
+import Button from "../../components/Button";
 
 const UploadForm = styled.form`
   display: flex;

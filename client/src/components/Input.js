@@ -14,11 +14,17 @@ const sizeType = {
     width: "235px",
     height: "39px",
   },
+  full: {
+    width: "100%",
+    height: "39px",
+  },
 };
 
 const InputWrapper = styled.input`
   border: 1px solid skyblue;
   font-size: 13px;
+  box-sizing: border-box;
+
   ${({ size }) =>
     size &&
     css`

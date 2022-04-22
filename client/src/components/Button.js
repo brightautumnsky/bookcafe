@@ -14,6 +14,10 @@ const sizeType = {
     width: "150px",
     height: "39px",
   },
+  full: {
+    width: "100%",
+    height: "39px",
+  },
 };
 
 const ButtonWrapper = styled.button`
@@ -26,6 +30,17 @@ const ButtonWrapper = styled.button`
       background: ${color};
       width: ${sizeType[size].width};
       height: ${sizeType[size].height};
+    `}
+
+  ${({ outline }) =>
+    outline &&
+    css`
+      border-radius: 5px;
+      color: white;
+      font-weight: 800;
+      &:hover {
+        background: gray;
+      }
     `}
 `;
 
