@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "./Button";
+import StyledLink from "./StyledLink";
+import { FaEllipsisH } from "react-icons/fa";
 
 const HeaderWrapper = styled.div`
   color: #5a5a5a;
@@ -20,29 +23,83 @@ const HeaderWrapper = styled.div`
   .header-menu {
     flex: 1;
     ul {
-      display: flex;
-      list-style: none;
       li {
         padding: 0 16px;
+        span {
+          cursor: pointer;
+        }
       }
     }
   }
-  .header-btn {
+  .header-menu-mobile {
+    display: none;
+  }
+  .header-btn-box {
+    display: flex;
     & > * {
       margin-left: 7px;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    .header-container {
+      padding: 0 20px;
+    }
+    .header-btn-box {
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .header-container {
+      justify-content: space-between;
+    }
+    .header-menu,
+    .header-btn-box {
+      display: none;
+    }
+    .header-menu-mobile {
+      display: block;
+    }
+  }
+`;
+
+const SubMenu = styled.div`
+  position: absolute;
+  top: 52px;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: white;
+  box-sizing: border-box;
+  padding: 0 20px;
+  ul {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    li {
+      margin-bottom: 6px;
     }
   }
 `;
 
 const Header = ({ text }) => {
+  const [active, setActive] = useState(false);
+
+  const closeSubMenu = () => {
+    setActive(false);
+  };
+
   return (
     <HeaderWrapper>
       <div className="header-container">
-        <div className="header-title">{text}</div>
+        <div className="header-title">
+          <StyledLink to="/">{text}</StyledLink>
+        </div>
         <div className="header-menu">
           <ul>
             <li>
-              <span>글쓰기</span>
+              <StyledLink to="/upload/review">
+                <span>글쓰기</span>
+              </StyledLink>
             </li>
             <li>
               <span>인기도서</span>
@@ -61,9 +118,46 @@ const Header = ({ text }) => {
             </li>
           </ul>
         </div>
-        <div className="header-btn">
-          <Button text="회원가입" color="#FBD6D2" outline />
-          <Button text="로그인" color="#D3F4FF" outline />
+        <div className="header-btn-box">
+          <Link to="/register">
+            <Button text="회원가입" color="#FBD6D2" outline />
+          </Link>
+          <Link to="/login">
+            <Button text="로그인" color="#D3F4FF" outline />
+          </Link>
+        </div>
+        <div className="header-menu-mobile">
+          <FaEllipsisH
+            onClick={() => {
+              setActive(!active);
+            }}
+          />
+          {active && (
+            <SubMenu>
+              <ul>
+                <li>
+                  <StyledLink to="/upload/review" onClick={closeSubMenu}>
+                    <span>글쓰기</span>
+                  </StyledLink>
+                </li>
+                <li>
+                  <span>인기도서</span>
+                </li>
+                <li>
+                  <span>리뷰</span>
+                </li>
+                <li>
+                  <span>인기글</span>
+                </li>
+                <li>
+                  <span>동영상</span>
+                </li>
+                <li>
+                  <span>북마크</span>
+                </li>
+              </ul>
+            </SubMenu>
+          )}
         </div>
       </div>
     </HeaderWrapper>

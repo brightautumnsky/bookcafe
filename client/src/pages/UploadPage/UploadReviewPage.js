@@ -18,6 +18,12 @@ const UploadForm = styled.form`
   & > * {
     margin-bottom: 30px;
   }
+
+  @media screen and (max-width: 768px) {
+    .upload-textarea {
+      width: 100%;
+    }
+  }
 `;
 
 const initialState = {
@@ -55,6 +61,7 @@ const UploadReviewPage = () => {
         <div className="upload-box">
           <label>리뷰</label>
           <Textarea
+            className="upload-textarea"
             name="content"
             onChange={onChange}
             text="리뷰"

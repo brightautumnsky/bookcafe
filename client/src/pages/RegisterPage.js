@@ -71,7 +71,7 @@ const RegisterPage = () => {
           onChange={onChange}
           value={password}
         />
-        <Button text="회원가입" size="full" />
+        <Button text="회원가입" size="full" color="#FBD6D2" />
       </RegisterFormWrapper>
     </RegisterWrapper>
   );

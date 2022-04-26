@@ -42,6 +42,11 @@ const ButtonWrapper = styled.button`
         background: gray;
       }
     `}
+
+    @media screen and (max-width: 768px) {
+    width: 70px;
+    height: 25px;
+  }
 `;
 
 const Button = ({ text, ...rest }) => {

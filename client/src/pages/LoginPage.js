@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -31,6 +32,7 @@ const initialInputs = {
 const LoginPage = () => {
   const [inputs, onChange] = useInputs(initialInputs);
   const { email, password } = inputs;
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -39,9 +41,13 @@ const LoginPage = () => {
       password,
     };
 
-    axios
-      .post("/api/users/login", body)
-      .then((response) => console.log(response));
+    axios.post("/api/users/login", body).then((response) => {
+      if (response.data.loginSuccess) {
+        navigate("/");
+      } else {
+        console.log(response.data.e);
+      }
+    });
   };
 
   return (
