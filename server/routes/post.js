@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Post } = require("../models/Post");
 const { auth } = require("../middleware/auth");
+const multer = require("multer");
 
 // 업로드
 router.post("/upload", auth, (req, res) => {
@@ -10,6 +11,30 @@ router.post("/upload", auth, (req, res) => {
       return res.status(400).json({ success: false, e });
     }
     return res.status(200).json({ success: true });
+  });
+});
+
+// 이미지
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}_${file.originalname}`);
+  },
+});
+var upload = multer({ storage: storage }).single("file");
+
+router.post("/image", (req, res) => {
+  upload(req, res, (e) => {
+    if (e) {
+      return res.json({ success: false, e });
+    }
+    return res.json({
+      success: true,
+      filePath: res.req.file.path,
+      fileName: res.req.file.filename,
+    });
   });
 });
 

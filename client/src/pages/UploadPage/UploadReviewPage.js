@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import useInputs from "../../utils/useInputs";
 import Input from "../../components/Input";
 import Textarea from "../../components/Textarea";
 import Button from "../../components/Button";
+import StyledDropzone from "../../components/StyledDropzone";
 
 const UploadForm = styled.form`
   display: flex;
@@ -31,21 +34,51 @@ const initialState = {
   writer: "",
   date: "",
   content: "",
+  image: "",
 };
 
-const UploadReviewPage = () => {
+const UploadReviewPage = (props) => {
   const [inputs, onChange, reset] = useInputs(initialState);
   const { title, writer, content, date } = inputs;
+  const [images, setImages] = useState([]);
+  const navigate = useNavigate();
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log({ title, writer, content, date });
+
+    if (!title || !writer || !content || !date || !images) {
+      return alert("모든 값을 입력해주세요.");
+    }
+
+    const body = {
+      title,
+      writer: props.user.userData._id,
+      content,
+      date,
+      image: images,
+    };
+    axios.post("/api/post/upload", body).then((response) => {
+      if (response.date.success) {
+        alert("포스팅에 성공했습니다.");
+        navigate("/");
+      } else {
+        alert("포스팅에 실패했습니다.");
+      }
+    });
+
     reset();
+  };
+
+  const getImages = (imgArr) => {
+    setImages(imgArr);
   };
 
   return (
     <div>
-      <UploadForm>
+      <UploadForm onSubmit={submitForm}>
+        <div className="upload-box">
+          <StyledDropzone getImages={getImages} />
+        </div>
         <div className="upload-box">
           <label>도서명</label>
           <Input name="title" onChange={onChange} text="도서명" value={title} />
@@ -68,7 +101,7 @@ const UploadReviewPage = () => {
             value={content}
           />
         </div>
-        <Button text="등록" onClick={submitForm} />
+        <Button type="submit" text="등록" />
       </UploadForm>
     </div>
   );

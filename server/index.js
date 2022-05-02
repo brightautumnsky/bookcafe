@@ -21,5 +21,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use("/api/users", userRoute);
 app.use("/api/post", postRoute);
+app.use("/uploads", express.static("uploads"));
 
 app.listen(port, () => console.log("backend server is runnung..."));
