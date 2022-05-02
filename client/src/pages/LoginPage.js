@@ -4,7 +4,8 @@ import styled from "styled-components";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import useInputs from "../utils/useInputs";
-import axios from "axios";
+import { login } from "../_actions/users";
+import { useDispatch } from "react-redux";
 
 const LoginWrapper = styled.div`
   margin: 0 auto;
@@ -33,6 +34,7 @@ const LoginPage = () => {
   const [inputs, onChange] = useInputs(initialInputs);
   const { email, password } = inputs;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -41,13 +43,27 @@ const LoginPage = () => {
       password,
     };
 
-    axios.post("/api/users/login", body).then((response) => {
-      if (response.data.loginSuccess) {
-        navigate("/");
-      } else {
-        console.log(response.data.e);
-      }
-    });
+    dispatch(login(body))
+      .then((response) => {
+        if (response.payload.loginSuccess) {
+          window.localStorage.setItem("userId", response.payload.userId);
+          navigate("/");
+        } else {
+          alert("오류가 발생했습니다.");
+        }
+      })
+      .catch((e) => {
+        alert("오류가 발생했습니다.");
+        console.log(e);
+      });
+
+    //   axios.post("/api/users/login", body).then((response) => {
+    //     if (response.data.loginSuccess) {
+    //       navigate("/");
+    //     } else {
+    //       console.log(response.data.e);
+    //     }
+    //   });
   };
 
   return (

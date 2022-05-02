@@ -52,13 +52,13 @@ const UploadReviewPage = (props) => {
 
     const body = {
       title,
-      writer: props.user.userData._id,
+      writer: props.user.login.userId,
       content,
       date,
       image: images,
     };
     axios.post("/api/post/upload", body).then((response) => {
-      if (response.date.success) {
+      if (response.data.success) {
         alert("포스팅에 성공했습니다.");
         navigate("/");
       } else {

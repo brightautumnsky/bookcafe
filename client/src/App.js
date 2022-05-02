@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Auth from "./hoc/auth";
 import Header from "./components/Header";
@@ -10,13 +10,13 @@ import MainPage from "./pages/MainPage/MainPage";
 import Footer from "./components/Footer";
 
 function App() {
-  const HocUploadReviewPage = Auth(UploadReviewPage, null);
-  const HocLoginPage = Auth(LoginPage, null);
-  const HocRegisterPage = Auth(RegisterPage, null);
+  const HocUploadReviewPage = Auth(UploadReviewPage, true);
+  const HocLoginPage = Auth(LoginPage, false);
+  const HocRegisterPage = Auth(RegisterPage, false);
   return (
-    <BrowserRouter>
+    <Router>
+      <Header text="책마을" />
       <div className="App">
-        <Header text="책마을" />
         <div className="container">
           <Routes>
             <Route path="/" exact element={<MainPage />} />
@@ -25,9 +25,9 @@ function App() {
             <Route path="/register" element={<HocRegisterPage />} />
           </Routes>
         </div>
-        <Footer />
       </div>
-    </BrowserRouter>
+      <Footer />
+    </Router>
   );
 }
 

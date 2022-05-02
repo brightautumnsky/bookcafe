@@ -1,4 +1,6 @@
 import React from "react";
+import { register } from "../_actions/users";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -32,6 +34,7 @@ const initialInputs = {
 const RegisterPage = () => {
   const [inputs, onChange] = useInputs(initialInputs);
   const { name, email, password } = inputs;
+  const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -41,9 +44,7 @@ const RegisterPage = () => {
       password,
     };
 
-    axios
-      .post("/api/users/register", body)
-      .then((response) => console.log(response));
+    dispatch(register(body)).then((response) => console.log(response.data));
   };
 
   return (

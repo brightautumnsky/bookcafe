@@ -1,27 +1,33 @@
 import { useEffect } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { auth } from "../_actions/users";
+// import { useNavigate } from "react-router-dom";
 
 export default function (SpecificComponent, option, adminRoute = null) {
+  let user = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+
   function AuthenticationCheck(props) {
     useEffect(() => {
-      axios.get("/api/users/auth").then((response) => {
-        if (!response.data.isAuth) {
+      dispatch(auth()).then(async (response) => {
+        if (await !response.payload.isAuth) {
           if (option) {
-            props.history.push("/");
+            // navigate("/login");
           }
         } else {
           if (adminRoute && !response.data.isAdmin) {
-            props.history.push("/");
+            // navigate("/");
           } else {
             if (option === false) {
-              props.history.push("/");
+              // navigate("/");
             }
           }
         }
       });
     }, []);
 
-    return <SpecificComponent />;
+    return <SpecificComponent user={user} />;
   }
 
   return AuthenticationCheck;

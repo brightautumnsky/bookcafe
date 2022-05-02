@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { logout } from "../_actions/users";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Button from "./Button";
 import StyledLink from "./StyledLink";
@@ -82,10 +85,22 @@ const SubMenu = styled.div`
 `;
 
 const Header = ({ text }) => {
+  const user = useSelector((state) => state.users);
+  const dispatch = useDispatch();
   const [active, setActive] = useState(false);
 
   const closeSubMenu = () => {
     setActive(false);
+  };
+
+  const clickLogout = () => {
+    dispatch(logout()).then((response) => {
+      if (!response.payload.success) {
+        console.log(response.payload.e);
+        alert("로그아웃에 실패했습니다.");
+      }
+      return alert("로그아웃에 성공했습니다.");
+    });
   };
 
   return (
@@ -118,14 +133,29 @@ const Header = ({ text }) => {
             </li>
           </ul>
         </div>
-        <div className="header-btn-box">
-          <Link to="/register">
-            <Button text="회원가입" color="#FBD6D2" outline />
-          </Link>
-          <Link to="/login">
-            <Button text="로그인" color="#D3F4FF" outline />
-          </Link>
-        </div>
+
+        {user && !user.loginSuccess ? (
+          <div className="header-btn-box">
+            <Link to="/register">
+              <Button text="회원가입" color="#FBD6D2" outline />
+            </Link>
+            <Link to="/login">
+              <Button text="로그인" color="#D3F4FF" outline />
+            </Link>
+          </div>
+        ) : (
+          <div className="header-btn-box">
+            <Link to="/">
+              <Button
+                text="로그아웃"
+                color="#ececec"
+                outline
+                onClick={clickLogout}
+              />
+            </Link>
+          </div>
+        )}
+
         <div className="header-menu-mobile">
           <FaEllipsisH
             onClick={() => {
