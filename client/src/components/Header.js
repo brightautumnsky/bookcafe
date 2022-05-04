@@ -120,7 +120,9 @@ const Header = ({ text }) => {
               <span>인기도서</span>
             </li>
             <li>
-              <span>리뷰</span>
+              <StyledLink to="/review">
+                <span>리뷰</span>
+              </StyledLink>
             </li>
             <li>
               <span>인기글</span>
@@ -174,7 +176,9 @@ const Header = ({ text }) => {
                   <span>인기도서</span>
                 </li>
                 <li>
-                  <span>리뷰</span>
+                  <StyledLink to="/review" onClick={closeSubMenu}>
+                    <span>리뷰</span>
+                  </StyledLink>
                 </li>
                 <li>
                   <span>인기글</span>

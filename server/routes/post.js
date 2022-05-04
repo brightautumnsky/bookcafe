@@ -40,14 +40,26 @@ router.post("/image", (req, res) => {
 
 // 모든 글 가져오기
 router.post("/getAllPost", (req, res) => {
-  Post.find()
-    .populate("writer")
-    .exec((e, allPost) => {
-      if (e) {
-        return res.status(400).json({ success: false, e });
-      }
-      res.status(200).json({ success: true, allPost });
-    });
+  let searchTerm = req.body.searchTerm;
+  if (searchTerm) {
+    Post.find({ $text: { $search: searchTerm } })
+      .populate("writer")
+      .exec((e, allPost) => {
+        if (e) {
+          return res.status(400).json({ success: false, e });
+        }
+        res.status(200).json({ success: true, allPost });
+      });
+  } else {
+    Post.find()
+      .populate("writer")
+      .exec((e, allPost) => {
+        if (e) {
+          return res.status(400).json({ success: false, e });
+        }
+        res.status(200).json({ success: true, allPost });
+      });
+  }
 });
 
 // 특정 글 가져오기

@@ -21,7 +21,24 @@ const postSchema = mongoose.Schema({
     type: Array,
     default: [],
   },
+  username: {
+    type: String,
+    maxlength: 50,
+  },
 });
+
+postSchema.index(
+  {
+    title: "text",
+    content: "text",
+  },
+  {
+    weight: {
+      title: 5,
+      content: 1,
+    },
+  }
+);
 
 const Post = mongoose.model("Post", postSchema);
 

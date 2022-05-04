@@ -37,10 +37,11 @@ router.post("/login", (req, res) => {
           return res.status(400).send(e);
         }
         // 토큰을 쿠키에 저장
-        res
-          .cookie("x_auth", user.token)
-          .status(200)
-          .json({ loginSuccess: true, userId: user._id });
+        res.cookie("x_auth", user.token).status(200).json({
+          loginSuccess: true,
+          userId: user._id,
+          username: user.name,
+        });
       });
     });
   });

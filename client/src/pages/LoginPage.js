@@ -56,14 +56,6 @@ const LoginPage = () => {
         alert("오류가 발생했습니다.");
         console.log(e);
       });
-
-    //   axios.post("/api/users/login", body).then((response) => {
-    //     if (response.data.loginSuccess) {
-    //       navigate("/");
-    //     } else {
-    //       console.log(response.data.e);
-    //     }
-    //   });
   };
 
   return (

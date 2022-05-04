@@ -52,10 +52,11 @@ const UploadReviewPage = (props) => {
 
     const body = {
       title,
-      writer: props.user.login.userId,
+      writer,
       content,
       date,
       image: images,
+      username: props.user.login.username,
     };
     axios.post("/api/post/upload", body).then((response) => {
       if (response.data.success) {
