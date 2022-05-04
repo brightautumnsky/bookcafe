@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import MainPage from "./pages/MainPage/MainPage";
 import ReviewPage from "./pages/ReviewPage";
+import ReviewDetailPage from "./pages/ReviewDetailPage";
 import Footer from "./components/Footer";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   const HocLoginPage = Auth(LoginPage, false);
   const HocRegisterPage = Auth(RegisterPage, false);
   const HocReviewPage = Auth(ReviewPage, false);
+  const HocReviewDetailPage = Auth(ReviewDetailPage, false);
   return (
     <Router>
       <Header text="책마을" />
@@ -26,6 +28,7 @@ function App() {
             <Route path="/login" element={<HocLoginPage />} />
             <Route path="/register" element={<HocRegisterPage />} />
             <Route path="/review" element={<HocReviewPage />} />
+            <Route path="/review/:id" element={<HocReviewDetailPage />} />
           </Routes>
         </div>
       </div>
