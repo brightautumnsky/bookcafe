@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { logout } from "../_actions/users";
@@ -84,11 +84,35 @@ const SubMenu = styled.div`
   }
 `;
 
+const HeaderUserBox = () => {
+  return (
+    <div className="header-btn-box">
+      <Link to="/register">
+        <Button text="회원가입" color="#FBD6D2" outline />
+      </Link>
+      <Link to="/login">
+        <Button text="로그인" color="#D3F4FF" outline />
+      </Link>
+    </div>
+  );
+};
+
 const Header = ({ text }) => {
   const user = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
-  const isAuth = user.userData && user.userData.isAuth;
+  const [currentUser, setCurrentUser] = useState(
+    window.localStorage.getItem("userId")
+  );
+
+  useEffect(() => {
+    let userId = user.userData && user.userData._id;
+    if (userId) {
+      setCurrentUser(userId);
+    } else {
+      setCurrentUser(null);
+    }
+  }, [user]);
 
   const closeSubMenu = () => {
     setActive(false);
@@ -100,6 +124,8 @@ const Header = ({ text }) => {
         console.log(response.payload.e);
         alert("로그아웃에 실패했습니다.");
       }
+      window.localStorage.removeItem("userId");
+      setCurrentUser(null);
       alert("로그아웃에 성공했습니다.");
     });
   };
@@ -139,7 +165,7 @@ const Header = ({ text }) => {
           </ul>
         </div>
 
-        {!isAuth ? (
+        {!currentUser ? (
           <div className="header-btn-box">
             <Link to="/register">
               <Button text="회원가입" color="#FBD6D2" outline />

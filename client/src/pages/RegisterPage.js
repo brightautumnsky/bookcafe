@@ -39,6 +39,11 @@ const RegisterPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    if (!name || !email || !password) {
+      return alert("모든 항목을 입력해주세요.");
+    }
+
     const body = {
       name,
       email,
