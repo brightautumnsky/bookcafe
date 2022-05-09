@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Bookmark from "../components/Bookmark";
+import Loading from "../components/Loading";
 
 const ReviewDetailWrapper = styled.div`
   & > div {
@@ -32,13 +33,6 @@ const ReviewDetailWrapper = styled.div`
   }
 `;
 
-const DetailLoading = styled.div`
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const ReviewDetailPage = () => {
   const { id } = useParams();
   const [review, setReview] = useState(null);
@@ -54,7 +48,7 @@ const ReviewDetailPage = () => {
   }, [id]);
 
   if (!review) {
-    return <DetailLoading>로딩중...</DetailLoading>;
+    return <Loading />;
   }
   return (
     <div>

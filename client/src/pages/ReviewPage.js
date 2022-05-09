@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import SearchBox from "../components/SearchBox";
+import Loading from "../components/Loading";
 
 const ReviewContainer = styled.div`
   width: 100%;
@@ -63,13 +64,6 @@ const ReviewBox = styled.div`
   }
 `;
 
-const ReviewLoading = styled.div`
-  height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const ReviewPage = () => {
   const [review, setReview] = useState(null);
   const navigate = useNavigate();
@@ -93,7 +87,7 @@ const ReviewPage = () => {
   };
 
   if (!review) {
-    return <ReviewLoading>로딩중...</ReviewLoading>;
+    return <Loading />;
   }
 
   return (

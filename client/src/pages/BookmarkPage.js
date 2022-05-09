@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const BookmarkBox = styled.div`
   display: flex;
@@ -17,13 +18,6 @@ const BookmarkBox = styled.div`
     line-height: 500px;
     text-align: center;
   }
-`;
-
-const BookmarkLoading = styled.div`
-  height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const BookmarkPage = () => {
@@ -51,7 +45,7 @@ const BookmarkPage = () => {
   };
 
   if (!bookmarkList) {
-    return <BookmarkLoading>로딩중...</BookmarkLoading>;
+    return <Loading />;
   }
 
   return (

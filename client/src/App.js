@@ -10,6 +10,7 @@ import MainPage from "./pages/MainPage/MainPage";
 import ReviewPage from "./pages/ReviewPage";
 import ReviewDetailPage from "./pages/ReviewDetailPage";
 import BookmarkPage from "./pages/BookmarkPage";
+import BestBooksPage from "./pages/BestBooksPage/BestBooksPage";
 import Footer from "./components/Footer";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
   const HocReviewPage = Auth(ReviewPage, null);
   const HocReviewDetailPage = Auth(ReviewDetailPage, null);
   const HocBookmarkPage = Auth(BookmarkPage, true);
+  const HocBestBooksPage = Auth(BestBooksPage, null);
 
   return (
     <Router>
@@ -33,6 +35,7 @@ function App() {
             <Route path="/review" element={<HocReviewPage />} />
             <Route path="/review/:id" element={<HocReviewDetailPage />} />
             <Route path="/bookmark" element={<HocBookmarkPage />} />
+            <Route path="/bestbooks" element={<HocBestBooksPage />} />
           </Routes>
         </div>
       </div>

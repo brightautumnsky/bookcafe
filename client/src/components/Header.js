@@ -84,19 +84,6 @@ const SubMenu = styled.div`
   }
 `;
 
-const HeaderUserBox = () => {
-  return (
-    <div className="header-btn-box">
-      <Link to="/register">
-        <Button text="회원가입" color="#FBD6D2" outline />
-      </Link>
-      <Link to="/login">
-        <Button text="로그인" color="#D3F4FF" outline />
-      </Link>
-    </div>
-  );
-};
-
 const Header = ({ text }) => {
   const user = useSelector((state) => state.users);
   const dispatch = useDispatch();
@@ -144,7 +131,9 @@ const Header = ({ text }) => {
               </StyledLink>
             </li>
             <li>
-              <span>인기도서</span>
+              <StyledLink to="/bestbooks">
+                <span>인기도서</span>
+              </StyledLink>
             </li>
             <li>
               <StyledLink to="/review">
@@ -202,7 +191,9 @@ const Header = ({ text }) => {
                   </StyledLink>
                 </li>
                 <li>
-                  <span>인기도서</span>
+                  <StyledLink to="/bestbooks">
+                    <span>인기도서</span>
+                  </StyledLink>
                 </li>
                 <li>
                   <StyledLink to="/review" onClick={closeSubMenu}>

@@ -76,6 +76,7 @@ const UploadReviewPage = (props) => {
 
   return (
     <div>
+      <h2>리뷰 작성</h2>
       <UploadForm onSubmit={submitForm}>
         <div className="upload-box">
           <StyledDropzone getImages={getImages} />
