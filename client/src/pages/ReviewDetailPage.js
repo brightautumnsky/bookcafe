@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Bookmark from "../components/Bookmark";
 
 const ReviewDetailWrapper = styled.div`
   & > div {
@@ -59,6 +60,7 @@ const ReviewDetailPage = () => {
     <div>
       {review && (
         <ReviewDetailWrapper>
+          <Bookmark id={id} postTitle={review.title} />
           <div className="detail-username">
             <span>작성자:</span>
             <p>{review.username}</p>

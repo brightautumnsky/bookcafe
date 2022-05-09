@@ -1,5 +1,12 @@
 import axios from "axios";
-import { REGISTER_USER, LOGIN_USER, LOGOUT_USER, AUTH_USER } from "./types";
+import {
+  REGISTER_USER,
+  LOGIN_USER,
+  LOGOUT_USER,
+  AUTH_USER,
+  ADD_BOOKMARK_USER,
+  DELETE_BOOKMARK_USER,
+} from "./types";
 
 export function register(data) {
   const request = axios

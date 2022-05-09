@@ -131,7 +131,9 @@ const Header = ({ text }) => {
               <span>동영상</span>
             </li>
             <li>
-              <span>북마크</span>
+              <StyledLink to="/bookmark" onClick={closeSubMenu}>
+                <span>북마크</span>
+              </StyledLink>
             </li>
           </ul>
         </div>
@@ -187,7 +189,9 @@ const Header = ({ text }) => {
                   <span>동영상</span>
                 </li>
                 <li>
-                  <span>북마크</span>
+                  <StyledLink to="/bookmark" onClick={closeSubMenu}>
+                    <span>북마크</span>
+                  </StyledLink>
                 </li>
               </ul>
             </SubMenu>

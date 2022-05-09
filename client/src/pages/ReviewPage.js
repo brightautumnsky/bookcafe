@@ -64,7 +64,7 @@ const ReviewBox = styled.div`
 `;
 
 const ReviewLoading = styled.div`
-  height: 1000px;
+  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,6 +98,7 @@ const ReviewPage = () => {
 
   return (
     <ReviewContainer>
+      <h2>도서 리뷰</h2>
       <SearchBox getSearchPost={getSearchPost} />
       {review.map((item, index) => (
         <ReviewBox key={index} onClick={() => clickReview(item._id)}>

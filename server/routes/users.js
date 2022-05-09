@@ -41,6 +41,7 @@ router.post("/login", (req, res) => {
           loginSuccess: true,
           userId: user._id,
           username: user.name,
+          bookmark: user.bookmark,
         });
       });
     });

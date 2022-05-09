@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage";
 import MainPage from "./pages/MainPage/MainPage";
 import ReviewPage from "./pages/ReviewPage";
 import ReviewDetailPage from "./pages/ReviewDetailPage";
+import BookmarkPage from "./pages/BookmarkPage";
 import Footer from "./components/Footer";
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
   const HocRegisterPage = Auth(RegisterPage, false);
   const HocReviewPage = Auth(ReviewPage, false);
   const HocReviewDetailPage = Auth(ReviewDetailPage, false);
+  const HocBookmarkPage = Auth(BookmarkPage, false);
+
   return (
     <Router>
       <Header text="책마을" />
@@ -29,6 +32,7 @@ function App() {
             <Route path="/register" element={<HocRegisterPage />} />
             <Route path="/review" element={<HocReviewPage />} />
             <Route path="/review/:id" element={<HocReviewDetailPage />} />
+            <Route path="/bookmark" element={<HocBookmarkPage />} />
           </Routes>
         </div>
       </div>
