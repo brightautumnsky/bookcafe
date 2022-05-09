@@ -32,8 +32,10 @@ const BookmarkPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const userId = user.userData && user.userData._id;
+
     let body = {
-      userFrom: user.login.userId,
+      userFrom: userId,
     };
     axios.post("/api/bookmark/getAll", body).then((response) => {
       if (response.data.success) {
@@ -42,7 +44,7 @@ const BookmarkPage = () => {
         console.log("북마크를 불러오는 데 실패했습니다");
       }
     });
-  }, []);
+  }, [user]);
 
   const clickBookmark = (postId) => {
     navigate(`/review/${postId}`);

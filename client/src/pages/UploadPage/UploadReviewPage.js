@@ -56,7 +56,7 @@ const UploadReviewPage = (props) => {
       content,
       date,
       image: images,
-      username: props.user.login.username,
+      username: props.user.userData.name,
     };
     axios.post("/api/post/upload", body).then((response) => {
       if (response.data.success) {

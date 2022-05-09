@@ -29,7 +29,7 @@ const Bookmark = ({ id, postTitle }) => {
   const clickBookmark = () => {
     let body = {
       postId: id,
-      userFrom: user.login.userId,
+      userFrom: user.userData._id,
       postTitle,
     };
 
@@ -57,7 +57,7 @@ const Bookmark = ({ id, postTitle }) => {
   useEffect(() => {
     let body = {
       postId: id,
-      userFrom: user.login.userId,
+      userFrom: user.userData._id,
     };
 
     axios.post("/api/bookmark/bookmarkNumber", body).then((response) => {

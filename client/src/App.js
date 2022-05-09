@@ -16,9 +16,9 @@ function App() {
   const HocUploadReviewPage = Auth(UploadReviewPage, true);
   const HocLoginPage = Auth(LoginPage, false);
   const HocRegisterPage = Auth(RegisterPage, false);
-  const HocReviewPage = Auth(ReviewPage, false);
-  const HocReviewDetailPage = Auth(ReviewDetailPage, false);
-  const HocBookmarkPage = Auth(BookmarkPage, false);
+  const HocReviewPage = Auth(ReviewPage, null);
+  const HocReviewDetailPage = Auth(ReviewDetailPage, null);
+  const HocBookmarkPage = Auth(BookmarkPage, true);
 
   return (
     <Router>

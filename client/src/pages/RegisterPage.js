@@ -1,11 +1,11 @@
 import React from "react";
 import { register } from "../_actions/users";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import useInputs from "../utils/useInputs";
-import axios from "axios";
 
 const RegisterWrapper = styled.div`
   margin: 0 auto;
@@ -35,6 +35,7 @@ const RegisterPage = () => {
   const [inputs, onChange] = useInputs(initialInputs);
   const { name, email, password } = inputs;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -45,6 +46,7 @@ const RegisterPage = () => {
     };
 
     dispatch(register(body)).then((response) => console.log(response.data));
+    navigate("/");
   };
 
   return (

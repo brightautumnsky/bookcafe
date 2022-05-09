@@ -1,34 +1,36 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../_actions/users";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function (SpecificComponent, option, adminRoute = null) {
-  let user = useSelector((state) => state.users);
-  const dispatch = useDispatch();
-  // const navigate = useNavigate();
-
+function authHoc(SpecificComponent, option, adminRoute = null) {
   function AuthenticationCheck(props) {
+    let user = useSelector((state) => state.users);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     useEffect(() => {
-      dispatch(auth()).then(async (response) => {
-        if (await !response.payload.isAuth) {
+      dispatch(auth()).then((response) => {
+        if (!response.payload.isAuth) {
           if (option) {
-            // navigate("/login");
+            navigate("/login");
           }
         } else {
           if (adminRoute && !response.data.isAdmin) {
-            // navigate("/");
+            navigate("/");
           } else {
             if (option === false) {
-              // navigate("/");
+              navigate("/");
             }
           }
         }
       });
-    }, []);
+    }, [dispatch, navigate]);
 
-    return <SpecificComponent user={user} />;
+    return <SpecificComponent {...props} user={user} />;
   }
 
   return AuthenticationCheck;
 }
+
+export default authHoc;

@@ -88,6 +88,7 @@ const Header = ({ text }) => {
   const user = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
+  const isAuth = user.userData && user.userData.isAuth;
 
   const closeSubMenu = () => {
     setActive(false);
@@ -99,7 +100,7 @@ const Header = ({ text }) => {
         console.log(response.payload.e);
         alert("로그아웃에 실패했습니다.");
       }
-      return alert("로그아웃에 성공했습니다.");
+      alert("로그아웃에 성공했습니다.");
     });
   };
 
@@ -138,7 +139,7 @@ const Header = ({ text }) => {
           </ul>
         </div>
 
-        {user && !user.loginSuccess ? (
+        {!isAuth ? (
           <div className="header-btn-box">
             <Link to="/register">
               <Button text="회원가입" color="#FBD6D2" outline />
