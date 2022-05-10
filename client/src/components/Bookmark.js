@@ -8,8 +8,13 @@ const BookmarkWrapper = styled.div`
   justify-content: flex-end;
   .bookmark {
     font-size: 50px;
-    margin-left: 12px;
     cursor: pointer;
+  }
+  span {
+    align-self: flex-end;
+    margin-bottom: 5px;
+    flex: 1;
+    font-size: 13px;
   }
   ${({ bookmarked }) => {
     const color = bookmarked;
@@ -27,6 +32,10 @@ const Bookmark = ({ id, postTitle }) => {
   const user = useSelector((state) => state.users);
 
   const clickBookmark = () => {
+    if (!user.userData._id) {
+      return alert("로그인 후 이용하실 수 있습니다.");
+    }
+
     let body = {
       postId: id,
       userFrom: user.userData._id,
@@ -78,7 +87,7 @@ const Bookmark = ({ id, postTitle }) => {
   }, []);
   return (
     <BookmarkWrapper bookmarked={bookmarked ? "red" : "darkgray"}>
-      {bookmarkNumber}회 북마크
+      <span>{bookmarkNumber}명의 회원에게 북마크 된 게시글입니다</span>
       <FaBookmark className="bookmark" onClick={clickBookmark} />
     </BookmarkWrapper>
   );
