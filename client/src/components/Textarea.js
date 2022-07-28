@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const TextareaWrapper = styled.textarea`
   width: 50%;
@@ -14,6 +14,14 @@ const TextareaWrapper = styled.textarea`
     color: darkgray;
     font-size: 12px;
   }
+  ${({ wide }) =>
+    wide &&
+    css`
+      width: 50vw;
+      height: 50px;
+      border: 1px solid black;
+      box-sizing: border-box;
+    `}
 `;
 
 const Textarea = ({ text, ...rest }) => {

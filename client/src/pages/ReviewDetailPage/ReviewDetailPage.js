@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Bookmark from "../components/Bookmark";
-import Loading from "../components/Loading";
+import Bookmark from "../../components/Bookmark";
+import Loading from "../../components/Loading";
+import Comment from "./sections/Comment";
 
 const ReviewDetailWrapper = styled.div`
-  & > div {
+  & > div:not(:last-child) {
     display: flex;
     border-bottom: 1px solid darkgray;
     align-items: center;
@@ -31,11 +32,15 @@ const ReviewDetailWrapper = styled.div`
       text-align: justify;
     }
   }
+  .detail-comment {
+    padding-left: 10px;
+  }
 `;
 
 const ReviewDetailPage = () => {
   const { id } = useParams();
   const [review, setReview] = useState(null);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     axios.get(`/api/post/get_by_id?id=${id}&type=single`).then((response) => {
@@ -45,7 +50,23 @@ const ReviewDetailPage = () => {
         alert("리뷰를 불러오는 데 실패했습니다.");
       }
     });
+
+    const body = {
+      postId: id,
+    };
+
+    axios.post("/api/comment/getComments", body).then((response) => {
+      if (response.data.success) {
+        setComments(response.data.comments);
+      } else {
+        alert("댓글을 불러오는 데 실패했습니다.");
+      }
+    });
   }, [id]);
+
+  const refreshFunction = (newComment) => {
+    setComments(comments.concat(newComment));
+  };
 
   if (!review) {
     return <Loading />;
@@ -82,6 +103,14 @@ const ReviewDetailPage = () => {
           </div>
           <div className="detail-content">
             <p>{review.content}</p>
+          </div>
+          <div className="detail-comment">
+            <p>댓글</p>
+            <Comment
+              id={id}
+              comments={comments}
+              refreshFunction={refreshFunction}
+            />
           </div>
         </ReviewDetailWrapper>
       )}

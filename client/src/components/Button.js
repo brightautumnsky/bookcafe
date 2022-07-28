@@ -43,8 +43,19 @@ const ButtonWrapper = styled.button`
       }
     `}
 
+  ${({ wide }) =>
+    wide &&
+    css`
+      color: black;
+      height: 51px;
+      width: 60px;
+      margin-left: 12px;
+      background: transparent;
+      border: 1px solid black;
+    `}
+ 
     @media screen and (max-width: 768px) {
-    width: 70px;
+    width: 60px;
     height: 25px;
   }
 `;

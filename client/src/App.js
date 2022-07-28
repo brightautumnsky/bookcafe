@@ -8,7 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import MainPage from "./pages/MainPage/MainPage";
 import ReviewPage from "./pages/ReviewPage";
-import ReviewDetailPage from "./pages/ReviewDetailPage";
+import ReviewDetailPage from "./pages/ReviewDetailPage/ReviewDetailPage";
 import BookmarkPage from "./pages/BookmarkPage";
 import BestBooksPage from "./pages/BestBooksPage/BestBooksPage";
 import Footer from "./components/Footer";
